@@ -10,7 +10,7 @@ router.post('/generate-pdf', function(req, res, next) {
   let seconds = Math.round(d.getTime() / 1000);
   let outputPdfName = seconds + '.pdf';
   let PUBLIC_WRITE_PATH = path.resolve('./public/pdf/' + outputPdfName);
-  convertToPDF(req.body, pdf => writeTOfile(res,PUBLIC_WRITE_PATH, pdf),null, null, true);
+  convertToPDF(req.body, pdf => writeTOfile(res,PUBLIC_WRITE_PATH, pdf, outputPdfName),null, null, true);
 });
 
 //helpers 
@@ -19,7 +19,7 @@ function writeTOfile(res, path, data, outputPdfName) {
   try{
     fs.writeFileSync(path, data);
     console.log("PDF write success");
-    let filePath = 'public/pdf/' + outputPdfName
+    let filePath = '/pdf/' + outputPdfName
     res.json({
       pdfFilePath : filePath, error: null
     })
